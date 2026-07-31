@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Sovos — Pre-Boarding</title>
+
+<!-- ============================================================= -->
+<!--  SOVOS PRE-BOARDING SITE                                      -->
+<!--  Single-file website. No Sovos systems required.             -->
+<!--                                                               -->
+<!--  ►►► TO CUSTOMISE, EDIT THE "CONFIG" BLOCK IN THE <script>    -->
+<!--      NEAR THE BOTTOM OF THIS FILE:                            -->
+<!--        • change the site password                            -->
+<!--        • replace the # link placeholders with real URLs      -->
+<!--        • edit any of the checklist / tips text               -->
+<!-- ============================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#072448;
+  --blue:#015FFF;
+  --blue-dark:#0146bf;
+  --text:#212121;
+  --text-2:#605f60;
+  --border:#dedede;
+  --bg:#ffffff;
+  --bg-soft:#f4f6fa;
+  --bg-hover:#f7f7f7;
+  --success:#2E7D32;
+  --success-bg:#E8F5E9;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow-1:0 1px 3px rgba(7,36,72,.10), 0 1px 2px rgba(7,36,72,.14);
+  --shadow-2:0 6px 20px rgba(7,36,72,.10);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --head:'Montserrat','Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--font);
+  color:var(--text);
+  background:var(--bg-soft);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--head);color:var(--navy);line-height:1.2}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.hidden{display:none !important}
+
+/* ---------- HEADER / NAV ---------- */
+header{
+  background:var(--navy);color:#fff;position:sticky;top:0;z-index:40;
+  box-shadow:var(--shadow-1);
+}
+.nav-inner{
+  max-width:1120px;margin:0 auto;padding:0 24px;height:62px;
+  display:flex;align-items:center;gap:18px;
+}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+.brand img{height:26px}
+.brand .divider{width:1px;height:24px;background:rgba(255,255,255,.3)}
+.brand .tag{font-size:12px;font-weight:500;color:#c9d6ec;letter-spacing:.3px;white-space:nowrap}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:6px}
+.nav-links button{
+  background:none;border:none;color:#c9d6ec;font-family:var(--font);
+  font-size:14px;font-weight:500;padding:8px 14px;border-radius:6px;cursor:pointer;
+  transition:all .15s;
+}
+.nav-links button:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-links button.active{color:#fff;background:rgba(1,95,255,.25)}
+.nav-links .signout{color:#8fa4c4}
+.nav-links .signout:hover{color:#fff;background:rgba(255,255,255,.06)}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:1120px;margin:0 auto;padding:36px 24px 72px}
+.view{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(120deg,#072448 0%,#0d3a6b 70%,#134a8a 100%);
+  color:#fff;border-radius:var(--radius);padding:46px 44px;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-2);
+}
+.hero::after{
+  content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(1,95,255,.45),transparent 68%);
+}
+.hero h1{color:#fff;font-size:34px;margin-bottom:14px;position:relative}
+.hero p{color:#dce6f5;font-size:16px;max-width:760px;position:relative;line-height:1.6}
+
+/* ---------- SECTION TITLES ---------- */
+.section-title{font-size:22px;margin:44px 0 6px}
+.section-sub{color:var(--text-2);font-size:14px;margin-bottom:22px}
+
+/* ---------- 90 DAY JOURNEY ---------- */
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.jcard{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px 20px;position:relative;box-shadow:var(--shadow-1);
+}
+.jcard .day{font-family:var(--head);font-weight:700;color:var(--blue);font-size:14px;letter-spacing:.5px}
+.jcard .phase{font-family:var(--head);font-weight:600;color:var(--navy);font-size:19px;margin:6px 0 8px}
+.jcard .desc{color:var(--text-2);font-size:13.5px;line-height:1.5}
+.jcard .num{
+  position:absolute;top:16px;right:18px;font-family:var(--head);font-weight:700;
+  font-size:34px;color:#eef2f8;line-height:1;
+}
+
+/* ---------- REGION PICKER ---------- */
+.region-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.region-btn{
+  background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:26px 18px;text-align:center;cursor:pointer;transition:all .18s;
+  display:flex;flex-direction:column;align-items:center;gap:12px;font-family:var(--font);
+}
+.region-btn:hover{border-color:var(--blue);box-shadow:var(--shadow-2);transform:translateY(-3px)}
+.region-btn .ricon{width:44px;height:44px;color:var(--blue)}
+.region-btn .rname{font-family:var(--head);font-weight:600;font-size:16px;color:var(--navy)}
+.region-btn .rgo{font-size:12.5px;color:var(--text-2)}
+
+/* ---------- CARDS / TOPICS ---------- */
+.phase-head{
+  display:flex;align-items:center;gap:12px;margin:40px 0 4px;
+}
+.phase-head .pill{
+  font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.6px;
+  text-transform:uppercase;color:#fff;background:var(--blue);
+  padding:5px 12px;border-radius:20px;
+}
+.phase-head .pill.prep{background:var(--navy)}
+.phase-head span.lbl{color:var(--text-2);font-size:13.5px}
+
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}
+.card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px 22px 20px;box-shadow:var(--shadow-1);transition:box-shadow .18s;
+}
+.card:hover{box-shadow:var(--shadow-2)}
+.card .chead{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.card .cicon{
+  flex:none;width:40px;height:40px;border-radius:10px;background:#eef3ff;
+  display:flex;align-items:center;justify-content:center;color:var(--blue);
+}
+.card .cicon svg{width:22px;height:22px}
+.card h3{font-size:16px}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.card li{
+  position:relative;padding-left:26px;font-size:14px;color:var(--text);line-height:1.5;
+}
+.card li::before{
+  content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;
+  background:var(--success-bg);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232E7D32'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-size:12px;background-repeat:no-repeat;background-position:center;
+}
+.card.full{grid-column:1 / -1}
+
+/* connect links inside cards */
+.linklist{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.linklist a{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 14px;
+  border:1px solid var(--border);border-radius:20px;font-size:13.5px;font-weight:500;
+  color:var(--navy);background:var(--bg-soft);transition:all .15s;
+}
+.linklist a:hover{border-color:var(--blue);color:var(--blue);text-decoration:none;background:#fff}
+.linklist a svg{width:16px;height:16px}
+
+/* ---------- HELPFUL LINKS (about page) ---------- */
+.links-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.link-card{
+  display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-1);
+  transition:all .18s;color:var(--navy);font-weight:600;font-size:15px;
+}
+.link-card:hover{border-color:var(--blue);box-shadow:var(--shadow-2);text-decoration:none;transform:translateY(-2px)}
+.link-card .licon{
+  flex:none;width:42px;height:42px;border-radius:10px;background:#eef3ff;
+  display:flex;align-items:center;justify-content:center;color:var(--blue);
+}
+.link-card .licon svg{width:22px;height:22px}
+.link-card .arrow{margin-left:auto;color:var(--text-2)}
+
+/* ---------- NOTE BANNER ---------- */
+.note{
+  background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);
+  border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow-1);
+  display:flex;gap:18px;align-items:flex-start;
+}
+.note .qmark{font-family:var(--head);font-size:46px;color:#dbe6ff;line-height:.7;flex:none}
+.note p{font-size:16px;color:var(--text);line-height:1.6}
+.note strong{color:var(--navy)}
+
+/* ---------- TIPS ---------- */
+.tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.tip{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;box-shadow:var(--shadow-1);
+}
+.tip .th{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.tip .th .ti{
+  width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.tip .th .ti.morn{background:var(--blue)}
+.tip .th .ti.night{background:var(--navy)}
+.tip .th .ti svg{width:22px;height:22px}
+.tip h3{font-size:17px}
+.tip ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.tip li{position:relative;padding-left:24px;font-size:14px;line-height:1.5}
+.tip li::before{
+  content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;border-radius:50%;
+  background:var(--blue);
+}
+
+/* ---------- DAY 1 TIMELINE ---------- */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:20px;position:relative}
+.tl-item:not(:last-child)::before{
+  content:"";position:absolute;left:19px;top:44px;width:2px;
+  bottom:-2px;background:var(--border);
+}
+.tl-dot{
+  flex:none;width:40px;height:40px;border-radius:50%;background:var(--blue);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-family:var(--head);font-weight:700;font-size:13px;z-index:1;
+  box-shadow:0 0 0 4px #eef3ff;
+}
+.tl-body{padding:8px 0 28px}
+.tl-body h3{font-size:15px;margin-bottom:5px}
+.tl-body p{font-size:14px;color:var(--text-2);line-height:1.55}
+
+/* ---------- FAQ ---------- */
+.faq{display:flex;flex-direction:column;gap:10px}
+.faq-item{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-1);
+}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;background:none;border:none;font-family:var(--font);
+  font-size:15px;font-weight:600;color:var(--navy);cursor:pointer;text-align:left;
+  gap:12px;
+}
+.faq-q:hover{background:var(--bg-hover)}
+.faq-q .fchev{flex:none;transition:transform .25s;color:var(--blue)}
+.faq-q .fchev svg{width:20px;height:20px;display:block}
+.faq-q[aria-expanded="true"] .fchev{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .3s ease, padding .3s ease;
+  font-size:14px;color:var(--text);line-height:1.6;padding:0 20px;
+}
+.faq-a.open{max-height:300px;padding:0 20px 18px}
+
+/* ---------- CTA BUTTON ---------- */
+.cta-bar{
+  margin-top:48px;padding:32px;background:linear-gradient(120deg,#072448,#0d3a6b);
+  border-radius:var(--radius);text-align:center;color:#fff;
+}
+.cta-bar h3{font-family:var(--head);font-size:20px;color:#fff;margin-bottom:8px}
+.cta-bar p{color:#c9d6ec;font-size:14px;margin-bottom:22px}
+.cta-bar button{
+  background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);
+  padding:13px 28px;font-family:var(--font);font-size:15px;font-weight:600;
+  cursor:pointer;transition:background .15s;display:inline-flex;align-items:center;gap:8px;
+}
+.cta-bar button:hover{background:var(--blue-dark)}
+.cta-bar button svg{width:18px;height:18px}
+
+/* ---------- BACK LINK ---------- */
+.back{
+  display:inline-flex;align-items:center;gap:6px;color:var(--text-2);font-size:14px;
+  font-weight:500;cursor:pointer;background:none;border:none;font-family:var(--font);
+  margin-bottom:14px;padding:0;
+}
+.back:hover{color:var(--blue)}
+.back svg{width:16px;height:16px}
+
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;color:var(--text-2);font-size:12.5px;padding:30px 24px 40px;
+}
+footer .flogo{height:18px;opacity:.55;margin-bottom:10px;display:inline-block}
+footer p{max-width:640px;margin:0 auto}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:880px){
+  .journey,.region-grid,.links-grid{grid-template-columns:repeat(2,1fr)}
+  .cards,.tips-grid{grid-template-columns:1fr}
+  .hero{padding:34px 26px}
+  .hero h1{font-size:27px}
+  .brand .tag{display:none}
+}
+@media(max-width:520px){
+  .journey,.region-grid,.links-grid{grid-template-columns:1fr}
+  .nav-links button{padding:8px 10px;font-size:13px}
+  main{padding:24px 16px 60px}
+  .nav-inner{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <header>
+    <div class="nav-inner">
+      <div class="brand" onclick="go('home')">
+        <img src="https://mosaicstorage1.blob.core.windows.net/images/branding/Sovos-Logo-White.svg" alt="Sovos"
+             onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'SOVOS',style:'font-family:Montserrat;font-weight:700;color:#fff;font-size:20px;letter-spacing:2px'}))">
+        <div class="divider"></div>
+        <div class="tag">New Hire Pre-Boarding</div>
+      </div>
+      <nav class="nav-links">
+        <button id="nav-home" onclick="go('home')">Home</button>
+        <button id="nav-about" onclick="go('about')">About &amp; Tips</button>
+
+      </nav>
+    </div>
+  </header>
+
+  <main id="main"></main>
+
+  <footer>
+    <img class="flogo" src="https://mosaicstorage1.blob.core.windows.net/images/branding/Sovos-Logo.svg" alt="Sovos"
+         onerror="this.style.display='none'">
+    <p>This site is provided to help you prepare before your first day. If anything looks incorrect or you have questions, contact your recruiter.</p>
+  </footer>
+</div>
+
+<script>
+/* ================================================================= */
+/*  ███  CONFIG — EDIT THIS SECTION  ███                             */
+/* ================================================================= */
+const CONFIG = {
+
+  /* ---- SHARED LINKS (used across pages) -----------------------
+     Replace any "#" placeholders with real URLs.                 */
+  links: {
+    handbook:   "https://acrobat.adobe.com/id/urn:aaid:sc:va6c2:3437cbae-3139-4b88-bf94-c7fe41770061",
+    wfh:        "https://www.canva.com/design/DAG6ZB-oB18/6inDficB2gR1f-Cb8XUIuA/view?utm_content=DAG6ZB-oB18&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hbed67dce25",
+    itHelpDesk: "mailto:ithelp@sovos.com",
+    website:    "https://sovos.com",
+    linkedin:   "https://www.linkedin.com/company/sovos",
+    instagram:  "https://www.instagram.com/sovoscompliance/"
+  }
+};
+
+/* ================================================================= */
+/*  ███  CONTENT — EDIT THE TEXT BELOW AS NEEDED  ███                */
+/* ================================================================= */
+
+const WELCOME_TEXT = "We're excited you've chosen to join our team and can't wait for you to get started. Between now and your first day, this site will help you get to know Sovos — our culture, our people, and what you can expect during your onboarding journey. Take some time to explore the resources and information here so you feel prepared and connected before day one.";
+
+const JOURNEY = [
+  { day:"DAY 1",  phase:"Awareness",    num:"01", desc:"Get oriented, meet your team, and settle into your tools and workspace." },
+  { day:"DAY 30", phase:"Understanding", num:"30", desc:"Build a working knowledge of your role, our products, and how we operate." },
+  { day:"DAY 60", phase:"Application",   num:"60", desc:"Start applying what you've learned and taking ownership of real work." },
+  { day:"DAY 90", phase:"Contribution",  num:"90", desc:"Deliver meaningful impact and grow into a confident member of the team." }
+];
+
+const TEAM_NOTE = "At Sovos, compliance isn't just about checking boxes — it's about unlocking potential. We can't wait to see the impact you'll make. <strong>You belong here.</strong>";
+
+const TIPS = {
+  night: [
+    "Locate your IT login email and save your credentials for Day 1",
+    "Contact your recruiter if you haven't received your login information",
+    "Confirm your laptop is charged and ready to go",
+    "Have a government-issued ID available for I-9 verification (U.S. employees only)",
+    "Check your calendar for First24 session links and morning meeting invites"
+  ],
+  morning: [
+    "Log in a few minutes early to get settled before sessions begin",
+    "Keep an eye on Teams for a welcome message from your manager",
+    "Relax and enjoy your first day — everyone at Sovos is excited to welcome you!"
+  ]
+};
+
+/* Region content. Each region has "preboarding" topic cards and
+   "prepare" topic cards. Icons are keys into the ICONS object below. */
+const REGIONS = {
+  "north-america": {
+    name:"North America", icon:"globeAmericas",
+    preboarding:[
+      { icon:"shield", title:"Background Check", items:[
+        "Complete your background check and drug test",
+        "Look for an email from First Advantage in your personal inbox"
+      ]},
+      { icon:"sun", title:"What to Expect on Your First Day", items:[
+        "Watch for an email from IT with your login credentials",
+        "Expect your laptop to arrive from FirstBase",
+        "Log in and access Microsoft Teams",
+        "Participate in First24 onboarding with fellow new hires",
+        "Meet with your manager and team",
+        "Attend your IT setup session"
+      ]},
+      { icon:"laptop", title:"IT, Systems & Administrative Topics", items:[
+        "Watch for your login credentials from IT",
+        "Set up Microsoft Teams once you're logged in",
+        "Attend your scheduled IT setup session"
+      ]}
+    ],
+    prepare:[
+      { icon:"building", title:"Our Company", items:[
+        "Browse the Sovos website to learn what we do",
+        "Explore our products and the customers we serve"
+      ]},
+      { icon:"people", title:"Our People", items:[
+        "Connect with your manager",
+        "Read the welcome packet",
+        "Learn about our culture"
+      ]}
+    ]
+  },
+  "south-america": {
+    name:"South America", icon:"globeAmericas",
+    preboarding:[
+      { icon:"shield", title:"Background Check", items:[
+        "Complete your background check and drug test",
+        "Look for an email from First Advantage in your personal inbox"
+      ]},
+      { icon:"sun", title:"What to Expect on Your First Day", items:[
+        "Receive and log in to your equipment",
+        "Confirm you can access Microsoft Teams",
+        "Prepare any necessary first-day documents",
+        "Attend your IT meeting",
+        "Participate in First24"
+      ]},
+      { icon:"laptop", title:"IT, Systems & Administrative Topics", items:[
+        "Receive and log in to your equipment",
+        "Confirm you can access Microsoft Teams",
+        "Attend your IT meeting"
+      ]}
+    ],
+    prepare:[
+      { icon:"building", title:"Our Company", items:[
+        "Browse the Sovos website to learn what we do",
+        "Explore our products and the customers we serve"
+      ]},
+      { icon:"people", title:"Our People", items:[
+        "Connect with your manager",
+        "Read the welcome packet",
+        "Learn about our culture"
+      ]}
+    ]
+  },
+  "europe": {
+    name:"Europe", icon:"globeEurope",
+    preboarding:[
+      { icon:"shield", title:"Background Check", items:[
+        "Complete your background check and drug test",
+        "Look for an email from First Advantage in your personal inbox"
+      ]},
+      { icon:"sun", title:"What to Expect on Your First Day", items:[
+        "Receive and log in to your equipment",
+        "Confirm you can access Microsoft Teams",
+        "Prepare any necessary first-day documents",
+        "Attend your IT meeting",
+        "Participate in First24"
+      ]},
+      { icon:"laptop", title:"IT, Systems & Administrative Topics", items:[
+        "Receive and log in to your equipment",
+        "Confirm you can access Microsoft Teams",
+        "Attend your IT meeting"
+      ]}
+    ],
+    prepare:[
+      { icon:"building", title:"Our Company", items:[
+        "Browse the Sovos website to learn what we do",
+        "Explore our products and the customers we serve"
+      ]},
+      { icon:"people", title:"Our People", items:[
+        "Connect with your manager",
+        "Read the welcome packet",
+        "Learn about our culture"
+      ]}
+    ]
+  },
+  "asia": {
+    name:"Asia", icon:"globeAsia",
+    preboarding:[
+      { icon:"shield", title:"Background Check", items:[
+        "Complete your background check and drug test",
+        "Look for an email from First Advantage in your personal inbox"
+      ]},
+      { icon:"sun", title:"What to Expect on Your First Day", items:[
+        "Receive and log in to your equipment",
+        "Confirm you can access Microsoft Teams",
+        "Prepare any necessary first-day documents",
+        "Attend your IT meeting",
+        "Participate in First24"
+      ]},
+      { icon:"laptop", title:"IT, Systems & Administrative Topics", items:[
+        "Receive and log in to your equipment",
+        "Confirm you can access Microsoft Teams",
+        "Attend your IT meeting"
+      ]}
+    ],
+    prepare:[
+      { icon:"building", title:"Our Company", items:[
+        "Browse the Sovos website to learn what we do",
+        "Explore our products and the customers we serve"
+      ]},
+      { icon:"people", title:"Our People", items:[
+        "Connect with your manager",
+        "Read the welcome packet",
+        "Learn about our culture"
+      ]}
+    ]
+  }
+};
+
+/* ================================================================= */
+/*  ███  BELOW HERE: SITE ENGINE — no need to edit  ███             */
+/* ================================================================= */
+
+const ICONS = {
+  shield:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15-4-4 1.41-1.41L11 13.17l5.59-5.59L18 9l-7 7z"/></svg>',
+  sun:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0-5 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42L12 2zM3.34 7l4.16-.35C6.83 7.11 6.19 7.71 5.66 8.42L3.34 7zm17.32 0-2.32 1.42c-.53-.71-1.17-1.31-1.84-1.77L20.66 7zM12 22l-2.39-3.42c.74.27 1.55.42 2.39.42s1.65-.15 2.39-.42L12 22zm8.66-5-4.16.35c.67-.46 1.31-1.06 1.84-1.77L20.66 17zM3.34 17l2.32-1.42c.53.71 1.17 1.31 1.84 1.77L3.34 17z"/></svg>',
+  laptop:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 2-.9 2-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>',
+  building:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+  globeAmericas:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 17.93A8 8 0 014 12c0-.62.08-1.21.21-1.79L9 15v1a2 2 0 002 2v1.93zm6.9-2.54A2 2 0 0016 16h-1v-3a1 1 0 00-1-1H8v-2h2a1 1 0 001-1V7h2a2 2 0 002-2v-.41A8 8 0 0117.9 17.39z"/></svg>',
+  globeEurope:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.5 6h-2.8a15 15 0 00-1.3-3.36A8 8 0 0119.5 8zM12 4c.83 1.2 1.48 2.53 1.91 4h-3.82c.43-1.47 1.08-2.8 1.91-4zM4.26 14A7.8 7.8 0 014 12c0-.7.1-1.36.26-2h3.38a16.5 16.5 0 000 4H4.26zm.82 2h2.8c.3 1.18.74 2.31 1.3 3.36A8 8 0 015.08 16zM8 8H5.08a8 8 0 014.1-3.36A15 15 0 008 8zm4 12c-.83-1.2-1.48-2.53-1.91-4h3.82A13.7 13.7 0 0112 20zm2.34-6H9.66a14.6 14.6 0 010-4h4.68a14.6 14.6 0 010 4zm.26 5.36c.56-1.05 1-2.18 1.3-3.36h2.8a8 8 0 01-4.1 3.36zM16.36 14a16.5 16.5 0 000-4h3.38c.16.64.26 1.3.26 2s-.1 1.36-.26 2h-3.38z"/></svg>',
+  globeAsia:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm5 6c.5 0 .9.4.9.9 0 .2-.1.4-.2.6l-1.2 1.5c-.2.3-.6.4-.9.3l-1.3-.4-.6 1.2c-.2.3-.5.5-.9.4l-1-.2v1.4c0 .4-.3.7-.7.7h-1c-.3 0-.6.2-.7.5l-.4 1.2A8 8 0 014 12a8 8 0 018-8c1.1 0 2.14.22 3.09.62l-.8.9c-.2.2-.2.5 0 .7l.5.5c.13.14.32.2.5.16l1.2-.28c.3-.07.51.28.31.53L16 8h1z"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
+  help:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 18h2v-2h-2v2zm1-16A10 10 0 002 12a10 10 0 1010-10zm0 18a8 8 0 110-16 8 8 0 010 16zm0-14a4 4 0 00-4 4h2a2 2 0 114 0c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5a4 4 0 00-4-4z"/></svg>',
+  linkedin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>',
+  instagram:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38A5.85 5.85 0 00.63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12A5.85 5.85 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 105.84 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-10.85a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>',
+  web:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.93 6h-2.95a15.7 15.7 0 00-1.38-3.56A8 8 0 0118.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a7.8 7.8 0 010-4h3.38a16.5 16.5 0 000 4H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8 8 0 015.08 16zm2.95-8H5.08a8 8 0 014.25-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82A13.7 13.7 0 0112 19.96zM14.34 14H9.66a14.6 14.6 0 010-4h4.68a14.6 14.6 0 010 4zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8 8 0 01-4.33 3.56zM16.36 14a16.5 16.5 0 000-4h3.38a7.8 7.8 0 010 4h-3.38z"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>',
+  chevL:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>',
+  chevDown:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>'
+};
+
+let state = { view:"home", region:null };
+
+function setActiveNav(){
+  document.getElementById('nav-home').classList.toggle('active', state.view==='home');
+  document.getElementById('nav-about').classList.toggle('active', state.view==='about');
+}
+
+function go(view, region){
+  state.view = view;
+  if(region) state.region = region;
+  setActiveNav();
+  window.scrollTo({top:0,behavior:'smooth'});
+  const main = document.getElementById('main');
+  if(view==='home') main.innerHTML = renderHome();
+  else if(view==='about') main.innerHTML = renderAbout();
+  else if(view==='region') main.innerHTML = renderRegion(state.region);
+}
+
+function esc(s){return s;} // content is trusted (author-supplied)
+
+function renderHome(){
+  const jcards = JOURNEY.map(j=>`
+    <div class="jcard">
+      <div class="num">${j.num}</div>
+      <div class="day">${j.day}</div>
+      <div class="phase">${j.phase}</div>
+      <div class="desc">${j.desc}</div>
+    </div>`).join('');
+
+  const regions = Object.entries(REGIONS).map(([key,r])=>`
+    <button class="region-btn" onclick="go('region','${key}')">
+      <span class="ricon">${ICONS[r.icon]}</span>
+      <span class="rname">${r.name}</span>
+      <span class="rgo">View my checklist →</span>
+    </button>`).join('');
+
+  return `
+  <div class="view">
+    <section class="hero">
+      <h1>Welcome to Sovos!</h1>
+      <p>${WELCOME_TEXT}</p>
+    </section>
+
+    <h2 class="section-title">Your first 90 days</h2>
+    <p class="section-sub">Here's the journey ahead — from getting oriented to making a real impact.</p>
+    <div class="journey">${jcards}</div>
+
+    <h2 class="section-title">Where are you located?</h2>
+    <p class="section-sub">Select your region to see the checklist and details that apply to you.</p>
+    <div class="region-grid">${regions}</div>
+  </div>`;
+}
+
+const FAQS = [
+  { q:"When will I receive my laptop and equipment?",
+    a:"For North America, your laptop will be shipped from FirstBase and should arrive before your start date. For all other regions, you will receive equipment details from your manager or IT contact ahead of Day 1. If you haven't heard anything a few days before you start, reach out to your recruiter." },
+  { q:"What is First24?",
+    a:"First24 is Sovos's new hire onboarding program where you'll meet fellow new hires, learn about the company, and get set up for success. You'll receive calendar invites with session links before your first day — keep an eye on your personal email." },
+  { q:"When will I get my IT login credentials?",
+    a:"Watch for an email from IT sent to your personal email address before Day 1. It will include your username and instructions for logging in. If you haven't received it by the day before you start, contact your recruiter." },
+  { q:"What is the I-9 process? (U.S. employees only)",
+    a:"U.S. employees are required to complete I-9 employment verification. Have a government-issued ID ready on Day 1 — your manager or HR contact will guide you through the process during onboarding." },
+  { q:"Who do I contact if I have questions before I start?",
+    a:"Your recruiter is your main point of contact for anything before Day 1. For technical issues on or after your first day, reach out to the IT Help Desk." }
+];
+
+const DAY1_TIMELINE = [
+  { label:"Before Day 1", text:"Locate your IT login email, charge your laptop, check your calendar for First24 links, and have your government-issued ID ready (U.S. only)." },
+  { label:"Morning",      text:"Log in a few minutes early to get settled. Keep an eye on Microsoft Teams for a welcome message from your manager." },
+  { label:"First24",      text:"Join your First24 onboarding session with fellow new hires. You'll learn about Sovos, meet the team, and get set up." },
+  { label:"Meet your team", text:"Connect with your manager, read your welcome packet, and start learning about your role and the people around you." },
+  { label:"IT Setup",     text:"Attend your IT setup session to get your tools, systems, and access configured and confirmed." }
+];
+
+function renderAbout(){
+  const helpful = [
+    { icon:"book", label:"Sovos Welcome Employee Handbook", url:CONFIG.links.handbook },
+    { icon:"home", label:"Working from Home Best Practices", url:CONFIG.links.wfh },
+    { icon:"help", label:"IT Help Desk", url:CONFIG.links.itHelpDesk }
+  ].map(l=>`
+    <a class="link-card" href="${l.url}" ${l.url.startsWith('http')?'target="_blank" rel="noopener"':''}>
+      <span class="licon">${ICONS[l.icon]}</span>
+      <span>${l.label}</span>
+      <span class="arrow">${ICONS.arrow}</span>
+    </a>`).join('');
+
+  const night = TIPS.night.map(t=>`<li>${t}</li>`).join('');
+  const morning = TIPS.morning.map(t=>`<li>${t}</li>`).join('');
+
+  const timeline = DAY1_TIMELINE.map((t,i)=>`
+    <div class="tl-item">
+      <div class="tl-dot">${i+1}</div>
+      <div class="tl-body"><h3>${t.label}</h3><p>${t.text}</p></div>
+    </div>`).join('');
+
+  const faqs = FAQS.map((f,i)=>`
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        <span>${f.q}</span>
+        <span class="fchev">${ICONS.chevDown}</span>
+      </button>
+      <div class="faq-a">${f.a}</div>
+    </div>`).join('');
+
+  return `
+  <div class="view">
+    <section class="note">
+      <span class="qmark">&ldquo;</span>
+      <p>${TEAM_NOTE}</p>
+    </section>
+
+    <h2 class="section-title">Helpful Links</h2>
+    <p class="section-sub">Resources to get you set up and comfortable.</p>
+    <div class="links-grid">${helpful}</div>
+
+    <h2 class="section-title">Day 1 at a Glance</h2>
+    <p class="section-sub">Here's what your first day will look like, from start to finish.</p>
+    <div class="timeline">${timeline}</div>
+
+    <h2 class="section-title">Our Tips</h2>
+    <p class="section-sub">A little preparation goes a long way toward a smooth start.</p>
+    <div class="tips-grid">
+      <div class="tip">
+        <div class="th"><span class="ti night">${ICONS.book}</span><h3>The Night Before Your First Day</h3></div>
+        <ul>${night}</ul>
+      </div>
+      <div class="tip">
+        <div class="th"><span class="ti morn">${ICONS.sun}</span><h3>Monday Morning</h3></div>
+        <ul>${morning}</ul>
+      </div>
+    </div>
+
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-sub">Answers to the questions new hires ask most.</p>
+    <div class="faq">${faqs}</div>
+
+    <div class="cta-bar">
+      <h3>Ready to explore your checklist?</h3>
+      <p>Select your region to see everything you need to do before Day 1.</p>
+      <button onclick="go('home')">${ICONS.globeAmericas} Select your region</button>
+    </div>
+  </div>`;
+}
+
+function topicCard(card, full){
+  const items = card.items.map(i=>`<li>${i}</li>`).join('');
+  return `
+    <div class="card${full?' full':''}">
+      <div class="chead">
+        <span class="cicon">${ICONS[card.icon]}</span>
+        <h3>${card.title}</h3>
+      </div>
+      <ul>${items}</ul>
+    </div>`;
+}
+
+function renderRegion(key){
+  const r = REGIONS[key];
+  if(!r) return renderHome();
+  const pre = r.preboarding.map(c=>topicCard(c)).join('');
+  const prep = r.prepare.map(c=>topicCard(c)).join('');
+
+  const connectCard = `
+    <div class="card full">
+      <div class="chead">
+        <span class="cicon">${ICONS.web}</span>
+        <h3>Get to Know Us</h3>
+      </div>
+      <div class="linklist">
+        <a href="${CONFIG.links.linkedin}" target="_blank" rel="noopener">${ICONS.linkedin} LinkedIn</a>
+        <a href="${CONFIG.links.instagram}" target="_blank" rel="noopener">${ICONS.instagram} Instagram</a>
+        <a href="${CONFIG.links.website}" target="_blank" rel="noopener">${ICONS.web} Browse the Sovos website</a>
+      </div>
+    </div>`;
+
+  return `
+  <div class="view">
+    <button class="back" onclick="go('home')">${ICONS.chevL} Back to region selection</button>
+    <section class="hero" style="padding:34px 40px">
+      <h1 style="font-size:28px">${r.name}</h1>
+      <p style="margin-top:6px">Your pre-boarding checklist and how to prepare for your first day at Sovos.</p>
+    </section>
+
+    <div class="phase-head">
+      <span class="pill">Pre-Boarding</span>
+      <span class="lbl">Complete these before your first day</span>
+    </div>
+    <div class="cards">${pre}</div>
+
+    <div class="phase-head">
+      <span class="pill prep">Prepare</span>
+      <span class="lbl">Get to know Sovos, our people, and our culture</span>
+    </div>
+    <div class="cards">${prep}${connectCard}</div>
+  </div>`;
+}
+
+function toggleFaq(btn){
+  const expanded = btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded', !expanded);
+  btn.nextElementSibling.classList.toggle('open', !expanded);
+}
+
+go('home');
+</script>
+</body>
+</html>
